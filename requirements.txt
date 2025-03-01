@@ -1,0 +1,4 @@
+streamlit==1.42.1
+pint==0.24.4
+SpeechRecognition==3.14.1
+pandas==2.2.3
