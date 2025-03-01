@@ -100,8 +100,6 @@ pip install streamlit pint SpeechRecognition pandas
 ## Follow For More...
 🔗 GitHub: [imad-ul-islam598](https://github.com/imad-ul-islam598)  
 
----
-
 ## Developed By
 **Imad Ul Islam** 
 
