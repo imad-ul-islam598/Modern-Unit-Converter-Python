@@ -1,7 +1,7 @@
-# 🔄 Universal Unit Converter
+# 🔄 Modern Unit Converter
 
 ## 🚀 Project Overview
-The **Universal Unit Converter** is a powerful and user-friendly **Streamlit** application that allows users to convert values between different units seamlessly. It supports **voice input**, offers **multiple themes**, and maintains a **conversion history** for easy reference.
+The **Modern Unit Converter** is a powerful and user-friendly **Streamlit** application that allows users to convert values between different units seamlessly. It supports **voice input**, offers **multiple themes**, and maintains a **conversion history** for easy reference.
 
 ## 🎯 Features
 ✅ **Multi-Category Unit Conversion:**
