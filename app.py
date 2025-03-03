@@ -129,60 +129,60 @@ to_unit = st.selectbox("To", units)
 value = st.number_input("Enter value", min_value=0.0, format="%.2f")
 
 # Speech recognition function
-def voice_input():
-    recognizer = sr.Recognizer()
-    with sr.Microphone() as source:
-        try:
-            audio = recognizer.listen(source, timeout=10, phrase_time_limit=5)
-            text = recognizer.recognize_google(audio).lower()
-            return text
-        except sr.UnknownValueError:
-            st.markdown("""<div style='color:#FF0000; padding:5px; font-size:16px;'>⚠️ <strong>Warning:</strong> Could not understand audio. </div>""", unsafe_allow_html=True)
+# def voice_input():
+#     recognizer = sr.Recognizer()
+#     with sr.Microphone() as source:
+#         try:
+#             audio = recognizer.listen(source, timeout=10, phrase_time_limit=5)
+#             text = recognizer.recognize_google(audio).lower()
+#             return text
+#         except sr.UnknownValueError:
+#             st.markdown("""<div style='color:#FF0000; padding:5px; font-size:16px;'>⚠️ <strong>Warning:</strong> Could not understand audio. </div>""", unsafe_allow_html=True)
 
-        except sr.RequestError:
-            st.markdown("""<div style='color:#FF0000; padding:5px; font-size:16px;'>🚫 <strong>Warning:</strong> Could not request results. Check your internet. </div>""", unsafe_allow_html=True)
+#         except sr.RequestError:
+#             st.markdown("""<div style='color:#FF0000; padding:5px; font-size:16px;'>🚫 <strong>Warning:</strong> Could not request results. Check your internet. </div>""", unsafe_allow_html=True)
 
-        except sr.WaitTimeoutError:
-            st.markdown("""<div style='color:#FF0000; padding:5px; font-size:16px;'>🔇 <strong>Warning:</strong> Timeout! No speech detected. Please try again. </div>""", unsafe_allow_html=True)
+#         except sr.WaitTimeoutError:
+#             st.markdown("""<div style='color:#FF0000; padding:5px; font-size:16px;'>🔇 <strong>Warning:</strong> Timeout! No speech detected. Please try again. </div>""", unsafe_allow_html=True)
 
             
-    return ""
+#     return ""
 
-# Extract value and units from voice input
-def parse_voice_command(command):
-    pattern = r"(\d+\.?\d*)\s*(\w+)\s*(to|in)?\s*(\w+)?"
-    match = re.search(pattern, command)
-    if match:
-        value = float(match.group(1))
-        from_unit = match.group(2)
-        to_unit = match.group(4) if match.group(4) else None
-        return value, from_unit, to_unit
-    return None, None, None
+# # Extract value and units from voice input
+# def parse_voice_command(command):
+#     pattern = r"(\d+\.?\d*)\s*(\w+)\s*(to|in)?\s*(\w+)?"
+#     match = re.search(pattern, command)
+#     if match:
+#         value = float(match.group(1))
+#         from_unit = match.group(2)
+#         to_unit = match.group(4) if match.group(4) else None
+#         return value, from_unit, to_unit
+#     return None, None, None
 
-if st.button("🎤 Voice Input"):
-    with st.spinner("Listening... Speak now!"):
-        voice_command = voice_input()
+# if st.button("🎤 Voice Input"):
+#     with st.spinner("Listening... Speak now!"):
+#         voice_command = voice_input()
     
-    if voice_command:
-        st.markdown(f"""<div style='padding:10px; font-size:16px; font-weight:bold; color:gray; text-align:start;'> Recognized: {voice_command}</div>""", unsafe_allow_html=True)
-        value, from_unit, to_unit = parse_voice_command(voice_command)
+#     if voice_command:
+#         st.markdown(f"""<div style='padding:10px; font-size:16px; font-weight:bold; color:gray; text-align:start;'> Recognized: {voice_command}</div>""", unsafe_allow_html=True)
+#         value, from_unit, to_unit = parse_voice_command(voice_command)
         
-        if value and from_unit and to_unit:
-            try:
-                result = (value * ureg(from_unit)).to(to_unit)
-                st.markdown(f"""<div class='result-box' style='margin-bottom:10px;'>{value} {from_unit} = {result.magnitude:.2f} {to_unit}</div>""", unsafe_allow_html=True)
-                conversion_history[category].append({
-                    "Value": value,
-                    "From": from_unit,
-                    "To": to_unit,
-                    "Result": f"{result.magnitude:.4f}"
-                })
-                with open(history_file, "w") as file:
-                    json.dump(conversion_history, file)
-            except Exception as e:
-                st.error(f"Conversion error: {e}")
-        else:
-            st.markdown("""<div style='color:#FF0000; margin-bottom:10px; font-size:16px;'>⚠️ <strong>Warning:</strong> Could not extract conversion details from voice input. </div>""", unsafe_allow_html=True)
+#         if value and from_unit and to_unit:
+#             try:
+#                 result = (value * ureg(from_unit)).to(to_unit)
+#                 st.markdown(f"""<div class='result-box' style='margin-bottom:10px;'>{value} {from_unit} = {result.magnitude:.2f} {to_unit}</div>""", unsafe_allow_html=True)
+#                 conversion_history[category].append({
+#                     "Value": value,
+#                     "From": from_unit,
+#                     "To": to_unit,
+#                     "Result": f"{result.magnitude:.4f}"
+#                 })
+#                 with open(history_file, "w") as file:
+#                     json.dump(conversion_history, file)
+#             except Exception as e:
+#                 st.error(f"Conversion error: {e}")
+#         else:
+#             st.markdown("""<div style='color:#FF0000; margin-bottom:10px; font-size:16px;'>⚠️ <strong>Warning:</strong> Could not extract conversion details from voice input. </div>""", unsafe_allow_html=True)
 
 
 # Manual conversion logic for user to select his unit manually
